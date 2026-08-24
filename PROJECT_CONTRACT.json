@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 2317,
+    "production_files": 42,
+    "production_packages": 9,
+    "test_files": 9,
+    "production_functions": 187,
+    "decision_points": 359
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": [
+      "Role",
+      "Rehearsal",
+      "Costume",
+      "CostumeAllocation",
+      "Performance",
+      "BanRule",
+      "AuditEntry",
+      "Assignment",
+      "TicketOrder"
+    ],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {
+      "steps": [
+        "录入角色资料与用户类型",
+        "选择并规范化排练、服装、演出或封禁菜单",
+        "保存角色并记录菜单变更审计日志",
+        "查询权限并展示控制室摘要"
+      ],
+      "test": "TestWorkflowOne"
+    },
+    {
+      "steps": [
+        "录入剧目、排练厅和起止时段",
+        "查询同厅排练并检测时间冲突",
+        "推进排练生命周期并维护参演人员出勤",
+        "展示排练结果并持久化恢复"
+      ],
+      "test": "TestWorkflowThree"
+    },
+    {
+      "steps": [
+        "登记服装库存与演出场次",
+        "查询库存并创建演员服装或票务分配",
+        "处理库存释放、售票和闭场状态",
+        "展示库存、余票、结算与审计汇总"
+      ],
+      "test": "TestWorkflowTwo"
+    }
+  ]
+}
